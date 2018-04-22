@@ -143,6 +143,29 @@ Keep in mind this will _only_ fire triggers
 on the master branch.
 
 
+## Debugging
+
+This container is an absolute pain in the ass to debug, 
+and uses python 2 to boot. 
+
+But it was the only thing working.
+
+To test: 
+
+* Run the server in one window
+* In a second window, open a shell in the container and monitor `/tmp/*.log`
+* In a third window, open a shell in the container and monitor `/www/*`
+
+To open a shell in the container:
+
+```
+docker exec -it <name-of-container> /bin/sh
+```
+
+Remember you only have `/bin/sh` and `python2`,
+no `bash` and no `python3`.
+
+
 ## License from Forked Repo
 
 Copyright (C) 2014-2015 Carlos Jenkins <carlos@jenkins.co.cr>
