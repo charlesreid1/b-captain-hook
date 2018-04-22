@@ -55,16 +55,6 @@ def index():
 
     hooks = config.get('hooks_path', join(path, 'hooks'))
 
-    # Enforce secret
-    secret = config.get('enforce_secret', '')
-    if secret:
-        try:
-            if payload['secret'] != secret:
-                logging.error('Invalid secret %s.'%(payload['secret']))
-                abort(403)
-        except:
-            abort(501)
-
     # Implement ping
     event = request.headers.get('X-GitHub-Event', 'ping')
     if event == 'ping':
@@ -76,6 +66,17 @@ def index():
     except Exception:
         logging.warning('Request parsing failed')
         abort(400)
+
+    # Enforce secret
+    secret = config.get('enforce_secret', '')
+    if secret!='':
+        try:
+            if payload['secret'] != secret:
+                logging.error('Invalid secret %s.'%(payload['secret']))
+                abort(403)
+        except:
+            abort(501)
+
 
     # Determining the branch is tricky, as it only appears for certain event
     # types an at different levels
@@ -178,4 +179,5 @@ def index():
 
 
 if __name__ == '__main__':
-    application.run(debug=True, host='0.0.0.0')
+    #application.run(debug=True, host='0.0.0.0')
+    application.run(host='0.0.0.0')
