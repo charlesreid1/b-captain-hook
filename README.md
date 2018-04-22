@@ -171,6 +171,16 @@ To check logs:
 docker logs -f <container-name>
 ```
 
+You can also run the container without sending it
+to the background,
+
+```
+docker-compose up
+```
+
+and this will show exceptions on the screen
+(but it won't show anything else useful...)
+
 
 ## License from Forked Repo
 
