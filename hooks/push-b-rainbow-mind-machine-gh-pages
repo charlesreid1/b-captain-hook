@@ -5,7 +5,7 @@ from datetime import datetime
 action = 'push'
 name = 'b-rainbow-mind-machine'
 branch = 'gh-pages'
-url = 'https://git.charlesreid1.com/charlesreid1/b-rainbow-mind-machine.git'
+git_url = 'https://git.charlesreid1.com/charlesreid1/b-rainbow-mind-machine.git'
 
 logfile = '/tmp/{action}-{name}-{branch}.log'.format(action=action, 
                                                     name=name, 
@@ -50,7 +50,7 @@ and os.path.isdir( os.path.join(basedir,"htdocs")) ):
 else:
     # clone
     mkdircmd = ["mkdir","-p",basedir]
-    clonecmd = ["git","-C",basedir,"clone","--separate-git-dir=%s"%(gitdir),"-b","gh-pages",url,workdir]
+    clonecmd = ["git","-C",basedir,"clone","--separate-git-dir=%s"%(gitdir),"-b","gh-pages",git_url,workdir]
     f.write("About to run the command:\n")
     f.write("    $ " + " ".join(clonecmd))
     f.write("\n")
