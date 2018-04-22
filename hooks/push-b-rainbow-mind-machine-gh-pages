@@ -43,9 +43,7 @@ and os.path.isdir( os.path.join(basedir,"htdocs")) ):
     f.write("About to run the command:\n")
     f.write("    $ " + " ".join(pullcmd))
     f.write("\n")
-    #subprocess.call(pullcmd)
-    p = subprocess.Popen(pullcmd, stdout=subprocess.STDERR, stderr=subprocess.PIPE)
-    f.write(p.stderr().read())
+    subprocess.call(pullcmd)
 
 else:
     # clone
@@ -54,8 +52,6 @@ else:
     f.write("About to run the command:\n")
     f.write("    $ " + " ".join(clonecmd))
     f.write("\n")
-    #subprocess.call(clonecmd)
-    p = subprocess.Popen(clonecmd, stdout=subprocess.STDERR, stderr=subprocess.PIPE)
-    f.write(p.stderr().read())
+    subprocess.call(clonecmd)
 
 f.close()
