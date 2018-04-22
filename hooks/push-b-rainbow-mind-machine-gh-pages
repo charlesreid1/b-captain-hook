@@ -39,23 +39,23 @@ with open(logfile,'w') as f:
     if( os.path.isdir( gitdir ) 
     and os.path.isdir( os.path.join(basedir,"htdocs")) ):
         # pull
-        pullcmd = ["git","-C",basedir,"--git-dir=%s"%(gitdir),"--work-tree=%s"%(workdir),"pull","origin","gh-pages"]
+        pullcmd = ["git","--git-dir=%s"%(gitdir),"--work-tree=%s"%(workdir),"pull","origin","gh-pages"]
         f.write("About to run the command:\n")
         f.write("    $ " + " ".join(pullcmd))
         f.write("\n")
         #subprocess.call(pullcmd)
-        p = subprocess.Popen(pullcmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(pullcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         f.write(p.stdout.readline())
         f.write(p.stderr.readline())
     
     else:
         # clone
         mkdircmd = ["mkdir","-p",basedir]
-        clonecmd = ["git","-C",basedir,"clone","--separate-git-dir=%s"%(gitdir),"-b","gh-pages",git_url,workdir]
+        clonecmd = ["git","clone","--separate-git-dir=%s"%(gitdir),"-b","gh-pages",git_url,workdir]
         f.write("About to run the command:\n")
         f.write("    $ " + " ".join(clonecmd))
         f.write("\n")
-        p = subprocess.Popen(clonecmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(clonecmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         f.write(p.stdout.readline())
         f.write(p.stderr.readline())
 
