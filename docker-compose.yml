@@ -2,11 +2,9 @@ version: '3'
 services:
   stormy_captain_hook:
     build: .
-    stdin_open: true
-    tty: true
     volumes:
       - "./hooks:/hooks"
-      - "/www/bots.charlesreid1.com:/www/bots.charlesreid1.com"
+      - "/www:/www"
     ports:
       - "5000:5000"
 

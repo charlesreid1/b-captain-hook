@@ -55,14 +55,9 @@ def index():
 
     hooks = config.get('hooks_path', join(path, 'hooks'))
 
-    # Allow Github IPs only
-    if config.get('github_ips_only', True):
-        src_ip = ip_address(
-            u'{}'.format(request.access_route[0])  # Fix stupid ipaddress issue
-        )
-        whitelist = requests.get('https://api.github.com/meta').json()['hooks']
-
-        for valid_ip in whitelist:
+    # Allow whitelisted IPs only
+    if len(config.get('whitelist_ips', []))>0:
+        for valid_ip in whitelist_ips:
             if src_ip in ip_network(valid_ip):
                 break
         else:
@@ -74,28 +69,12 @@ def index():
     # Enforce secret
     secret = config.get('enforce_secret', '')
     if secret:
-        # Only SHA1 is supported
-        header_signature = request.headers.get('X-Hub-Signature')
-        if header_signature is None:
-            abort(403)
-
-        sha_name, signature = header_signature.split('=')
-        if sha_name != 'sha1':
+        try:
+            if payload['secret'] != secret:
+                logging.error('Invalid secret %s.'%(payload['secret']))
+                abort(403)
+        except:
             abort(501)
-
-        # HMAC requires the key to be bytes, but data is string
-        mac = hmac.new(str(secret), msg=request.data, digestmod='sha1')
-
-        # Python prior to 2.7.7 does not have hmac.compare_digest
-        if hexversion >= 0x020707F0:
-            if not hmac.compare_digest(str(mac.hexdigest()), str(signature)):
-                abort(403)
-        else:
-            # What compare_digest provides is protection against timing
-            # attacks; we can live without this protection for a web-based
-            # application
-            if not str(mac.hexdigest()) == str(signature):
-                abort(403)
 
     # Implement ping
     event = request.headers.get('X-GitHub-Event', 'ping')

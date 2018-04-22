@@ -1,0 +1,6 @@
+{
+    "whitelist_ips": ["45.56.87.232"],
+    "enforce_secret": "SOMELONGSECRETSTRINGTHATYOUPASTEINTOGITHUBORGITEAWEBINTERFACE",
+    "return_scripts_info": true,
+    "hooks_path": "/hooks"
+}
