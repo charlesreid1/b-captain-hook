@@ -165,6 +165,12 @@ docker exec -it <name-of-container> /bin/sh
 Remember you only have `/bin/sh` and `python2`,
 no `bash` and no `python3`.
 
+To check logs:
+
+```
+docker logs -f <container-name>
+```
+
 
 ## License from Forked Repo
 

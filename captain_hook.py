@@ -34,7 +34,7 @@ from flask import Flask, request, abort
 
 application = Flask(__name__)
 
-logging.basicConfig(filename='/tmp/webhooks.log',
+logging.basicConfig(filename='/captain_hook.log',
                     filemode='a',
                     level=logging.DEBUG)
 
@@ -56,10 +56,10 @@ def index():
     hooks = config.get('hooks_path', join(path, 'hooks'))
 
     # Allow whitelisted IPs only
-    if len(config.get('whitelist_ips', []))>0:
-        for valid_ip in whitelist_ips:
-            if src_ip in ip_network(valid_ip):
-                break
+    whitelist_ips = config.get('whitelist_ips', True)
+    if whitelist_ips:
+        if src_ip in ip_network('45.56.87.232'):
+            break
         else:
             logging.error('IP {} not allowed'.format(
                 src_ip
