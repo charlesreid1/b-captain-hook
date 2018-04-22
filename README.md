@@ -26,8 +26,6 @@ sudo pip install -r requirements.txt
 This requires a config file. See `config.json`.
 
 
-`github_ips_only` - Restrict application to be called only by GitHub IPs. (TODO: fix)
-
 `enforce_secret` - require `X-Hub-Signature` in header. Not enforced if empty.
 
 `return_scripts_info` - return a JSON with the `stdout`, `stderr` and exit
@@ -107,10 +105,19 @@ docker-compose down
 
 ### Ports
 
-This binds to external port 5000. The IP checking and secret validation
-are crucial, especially if getting the clone URL from the payload.
+This binds to external port 5000. 
 
-In our case, the hook is reverse-proxied by nginx on krash.
+Implementing a secret key is critical to keep 
+captain hook from deploying random strangers' 
+webhook requests.
+
+In our case, the hook is reverse-proxied by nginx on krash,
+so we know what IP to expect. 
+
+(Problems implementing IP checking - 172 subrange, not 45 subrange.)
+
+More important than validating the IP is validating the secret.
+
 
 ### Volumes
 
