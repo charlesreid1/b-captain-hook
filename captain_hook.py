@@ -55,17 +55,6 @@ def index():
 
     hooks = config.get('hooks_path', join(path, 'hooks'))
 
-    # Allow whitelisted IPs only
-    whitelist_ips = config.get('whitelist_ips', True)
-    if whitelist_ips:
-        if src_ip in ip_network('45.56.87.232'):
-            break
-        else:
-            logging.error('IP {} not allowed'.format(
-                src_ip
-            ))
-            abort(403)
-
     # Enforce secret
     secret = config.get('enforce_secret', '')
     if secret:
