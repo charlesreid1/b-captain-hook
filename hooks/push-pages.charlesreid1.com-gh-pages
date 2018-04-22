@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+from datetime import datetime
+
+logfile = '/tmp/push-pages.charlesreid1.com-gh-pages.log'
+
+f = open(logfile,'a')
+
+f.write(datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+f.write("\n")
+
+import subprocess
+import os
+
+root = '/www'
+
+name = 'pages.charlesreid1.com'
+basedir = os.path.join(root,name)
+
+if( os.path.isdir( os.path.join(basedir,"git") ) 
+and os.path.isdir( os.path.join(basedir,"htdocs")) ):
+    # pull
+    pullcmd = ["git","-C",basedir,"--git-dir=git","--work-tree=htdocs","pull","origin","gh-pages"]
+    f.write("\n")
+    f.write("About to run the command:\n")
+    f.write("    $ " + " ".join(pullcmd))
+    f.write("\n")
+    subprocess.call(pullcmd)
+else:
+    # clone
+    mkdircmd = ["mkdir","-p",basedir]
+    clonecmd = ["git","-C",basedir,"clone","--separate-git-dir=git","-b","gh-pages",url,"htdocs"]
+    f.write("\n")
+    f.write("About to run the command:\n")
+    f.write("    $ " + " ".join(clonecmd))
+    f.write("\n")
+    subprocess.call(clonecmd)
+
+f.close()
