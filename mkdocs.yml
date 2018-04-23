@@ -1,0 +1,20 @@
+site_name: captain hook
+docs_dir: docs
+site_dir: site
+extra_css:
+  - css/custom.css
+theme: 
+  name: null
+  custom_dir: 'mkdocs-material/material'
+  palette:
+    primary: 'yellow'
+    accent: 'yellow'
+  logo:
+    icon: 'rowing'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+markdown_extensions:
+  - admonition
+pages:
+  - 'Home':         'index.md'
