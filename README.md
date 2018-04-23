@@ -33,7 +33,7 @@ code for each executed hook using the hook name as key. If this option is set
 you will be able to see the result of your hooks from within your GitHub
 hooks configuration page (see "Recent Deliveries").
 
-`hooks_path` - Configures a path to import the hooks. `/hooks`
+`hooks_path` - Configures a path to import the hooks. Example: `/app/hooks`
 
 
 ## Adding Hooks
@@ -122,10 +122,10 @@ More important than validating the IP is validating the secret.
 ### Volumes
 
 THe docker container mounts the `hooks/` directory
-in this repository to `/hooks` in the container.
+in this repository to `/app/hooks` in the container.
 
 ```
-./hooks:/hooks
+./hooks:/app/hooks
 ```
 
 **NOTE: These scripts must be made executable with `chmod +x`
