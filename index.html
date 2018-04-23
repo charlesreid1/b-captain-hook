@@ -420,7 +420,7 @@ cd python-github-webhooks
 code for each executed hook using the hook name as key. If this option is set
 you will be able to see the result of your hooks from within your GitHub
 hooks configuration page (see "Recent Deliveries").</p>
-<p><code>hooks_path</code> - Configures a path to import the hooks. <code>/hooks</code></p>
+<p><code>hooks_path</code> - Configures a path to import the hooks. Example: <code>/app/hooks</code></p>
 <h2 id="adding-hooks">Adding Hooks</h2>
 <p>This application will execute scripts in the hooks directory using the
 following order:</p>
@@ -483,8 +483,8 @@ so we know what IP to expect. </p>
 <p>More important than validating the IP is validating the secret.</p>
 <h3 id="volumes">Volumes</h3>
 <p>THe docker container mounts the <code>hooks/</code> directory
-in this repository to <code>/hooks</code> in the container.</p>
-<pre><code>./hooks:/hooks
+in this repository to <code>/app/hooks</code> in the container.</p>
+<pre><code>./hooks:/app/hooks
 </code></pre>
 
 <p><strong>NOTE: These scripts must be made executable with <code>chmod +x</code>
