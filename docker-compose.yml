@@ -5,6 +5,7 @@ services:
     volumes:
       - "./hooks:/hooks"
       - "/www:/www"
+      - "/tmp/triggers:/tmp/triggers"
     ports:
       - "5000:5000"
 
