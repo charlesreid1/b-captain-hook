@@ -92,3 +92,10 @@ Shell windows:
 (Make sure to give the canary service about 10 seconds to find the trigger file
 and another 20 seconds to restart the Captain Hook container.)
 
+Things to check:
+
+* Make sure hook is executable
+* Make sure info inside hook script is correct
+* Make sure repo is not private, or that container has necessary SSH keys
+
+
