@@ -3,11 +3,10 @@ from datetime import datetime
 
 repo = "d-nginx-subdomains"
 org = "docker"
+branch = "gh-pages"
 
-# TODO: fix this, too sick and tired of this docker container to fix right now
 action = 'push'
 name = '%s'%(repo)
-branch = 'gh-pages'
 git_url = 'https://git.charlesreid1.com/%s/%s.git'%(org,repo)
 
 logfile = '/tmp/{action}-{name}-{branch}.log'.format(action=action, 
