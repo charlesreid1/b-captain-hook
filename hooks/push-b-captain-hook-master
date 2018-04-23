@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+from datetime import datetime
+
+"""
+Captain Hook Webhook:
+Captain Hook Self-Updater
+
+This is a Captain Hook webhook that operates
+on Captain Hook itself. This webhook places
+a trigger file in the following directory:
+
+    /tmp/triggers
+
+On the host machine (blackbeard), a script 
+will detect this and run a task hard-coded 
+into Captain Hook's Canary.
+"""
+
+repo = "b-captain-hook"
+org = "bots"
+branch = "master"
+
+action = 'push'
+name = '%s'%(repo)
+git_url = 'https://git.charlesreid1.com/%s/%s.git'%(org,repo)
+
+logfile = '/tmp/{action}-{name}-{branch}.log'.format(action=action, 
+                                                    name=name, 
+                                                    branch=branch)
+
+with open(logfile,'w') as f:
+
+    f.write("\n")
+    f.write("-"*40)
+    f.write(datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    f.write("\n")
+    
+    import subprocess
+    import os
+    
+    # ------------------
+    # this one is pretty easy:
+    # we just touch the file 
+    # 
+    # /tmp/triggers/push-b-captain-hook-master
+    # 
+    # /tmp/triggers is mounted to the
+    # same location on the host dir.
+    fname = '/tmp/triggers/push-b-captain-hook-master'
+
+    f.write("About to touch the file: %s\n"%(fname))
+    with open(fname, 'w') as triggerfile:
+        triggerfile.write('SANTAMONICA')
+
