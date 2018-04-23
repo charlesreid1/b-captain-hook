@@ -215,3 +215,12 @@ This project is just the reinterpretation and merge of two approaches:
 
 [flask-github-webhook](https://github.com/razius/flask-github-webhook)
 
+
+# More Deets
+
+Self-updating hooks: create mounted, shared directory
+and create a canary watcher on the host.
+
+Push events from container to host via presence of file,
+container takes action and removes file.
+
