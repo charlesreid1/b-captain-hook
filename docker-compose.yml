@@ -3,7 +3,7 @@ services:
   stormy_captain_hook:
     build: .
     volumes:
-      - "./hooks:/hooks"
+      - "./hooks:/app/hooks"
       - "/www:/www"
       - "/tmp/triggers:/tmp/triggers"
     ports:

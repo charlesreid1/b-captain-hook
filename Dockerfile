@@ -1,6 +1,9 @@
 FROM python:2.7-alpine
 MAINTAINER "Charles Reid" <charles@charlesreid1.com>
 
+VOLUME ["/app/hooks"]
+VOLUME ["/tmp/triggers"]
+
 RUN apk add --update git
 
 WORKDIR /app
