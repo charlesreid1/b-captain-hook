@@ -1,0 +1,63 @@
+#!/usr/bin/env python
+from datetime import datetime
+
+repo = "scurvy-knave-theme"
+org = "charlesreid1"
+branch = "gh-pages"
+
+action = 'push'
+name = '%s'%(repo)
+git_url = 'https://git.charlesreid1.com/%s/%s.git'%(org,repo)
+
+logfile = '/tmp/{action}-{name}-{branch}.log'.format(action=action, 
+                                                    name=name, 
+                                                    branch=branch)
+
+with open(logfile,'w') as f:
+
+    f.write("\n")
+    f.write("-"*40)
+    f.write(datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    f.write("\n")
+    
+    import subprocess
+    import os
+    
+    # ------------------
+    # pages
+    #
+    # for a hypothetical repo "project":
+    # 
+    # .git dir:     /www/pages.charlesreid1.com/git.project
+    # htdocs dir:     /www/pages.charlesreid1.com/htdocs/project
+    
+    root = '/www'
+    pages = 'pages.charlesreid1.com'
+    
+    basedir = os.path.join(root,pages)
+    workdir = os.path.join(basedir,"htdocs",name)
+    gitdir = os.path.join(basedir,"git.%s"%(name))
+    
+    if( os.path.isdir( gitdir ) 
+    and os.path.isdir( os.path.join(basedir,"htdocs")) ):
+        # pull
+        pullcmd = ["git","--git-dir=%s"%(gitdir),"--work-tree=%s"%(workdir),"pull","origin","gh-pages"]
+        f.write("About to run the command:\n")
+        f.write("    $ " + " ".join(pullcmd))
+        f.write("\n")
+        #subprocess.call(pullcmd)
+        p = subprocess.Popen(pullcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        f.write(p.stdout.readline())
+        f.write(p.stderr.readline())
+    
+    else:
+        # clone
+        mkdircmd = ["mkdir","-p",basedir]
+        clonecmd = ["git","clone","--separate-git-dir=%s"%(gitdir),"-b","gh-pages",git_url,workdir]
+        f.write("About to run the command:\n")
+        f.write("    $ " + " ".join(clonecmd))
+        f.write("\n")
+        p = subprocess.Popen(clonecmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        f.write(p.stdout.readline())
+        f.write(p.stderr.readline())
+
