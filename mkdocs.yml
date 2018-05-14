@@ -1,4 +1,11 @@
 site_name: captain hook
+site_url: https://pages.charlesreid1.com/b-captain-hook
+repo_name: pod-charlesreid1
+repo_url: https://git.charlesreid1.com/bots/b-captain-hook
+edit_uri: ""
+
+copyright: 'Copyright &copy; 2018 <a href="https://charlesreid1.com">Charles Reid</a>, released under the <a href="https://opensource.org/licenses/MIT">MIT license</a>'
+
 docs_dir: docs
 site_dir: site
 extra_css:
