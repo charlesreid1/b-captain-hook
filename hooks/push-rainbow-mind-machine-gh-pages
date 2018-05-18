@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from datetime import datetime
 
-repo = "b-rainbow-mind-machine"
+repo = "rainbow-mind-machine"
 org = "bots"
 branch = "gh-pages"
 
