@@ -24,4 +24,6 @@ theme:
 markdown_extensions:
   - admonition
 pages:
-  - 'Home':         'index.md'
+  - 'Home':            'index.md'
+  - 'Getting Started': 'starting.md'
+

@@ -20,6 +20,9 @@ Install dependencies with pip:
 sudo pip install -r requirements.txt
 ```
 
+<br />
+<br />
+
 ## What is Captain Hook?
 
 ### The Short Version
@@ -53,7 +56,82 @@ See [Starting Captain Hook](starting.md) for how to set up the various startup s
 and docker pods that are required to run Captain Hook.
 
 
+<br />
+<br />
 
+## Adding Hooks
+
+Captain Hook will accept any incoming web hook that reaches it,
+bt it will only run scripts if the event, repository name, and/or
+branch to which changes were made matches the name of a script.
+
+To add a new script to be triggered on a particular web hook:
+
+```
+    hooks/{event}-{name}-{branch}
+    hooks/{event}-{name}
+    hooks/{event}
+    hooks/all
+```
+
+
+For example, suppose I performed a `push` action to a repository
+named `happy-giraffe`, and I was pushing commits to the `gh-pages`
+branch. Then the webhook sent to Captain Hook would contain this
+information, and Captain Hook would only run relevant scripts:
+(in this case, `hooks/{event}-{name}-{branch}`).
+
+The application passes the path to a JSON file, while holding the payload
+for the request as the first argument. Suppose we had an event where someone
+pushed to the `happy-giraffe` repository, to the `gh-pages` branch. 
+
+The application will pass in two pieces of information:
+
+* Path to JSON file holding payload - the first part of the request
+  is a JSON file that holds the payload for the request.
+  
+* The other piece of information passed is the name of the action
+    (e.g., `push`)
+
+The application will pass to the hooks the path to a JSON file holding the
+payload for the request as first argument. The event type will be passed
+as second argument. For example:
+
+```
+    hooks/push-myrepo-master /tmp/sXFHji push
+```
+
+Hooks can be written in any scripting language as long as the file is
+executable and has a shebang. A simple example in Python could be:
+
+```
+    #!/usr/bin/env python
+    # Python Example for Python GitHub Webhooks
+    # File: push-myrepo-master
+
+    import sys
+    import json
+
+    with open(sys.argv[1], 'r') as jsf:
+      payload = json.loads(jsf.read())
+
+    ### Do something with the payload
+    name = payload['repository']['name']
+    outfile = '/tmp/hook-{}.log'.format(name)
+
+    with open(outfile, 'w') as f:
+        f.write(json.dumps(payload))
+```
+
+Not all events have an associated branch, so a branch-specific hook cannot
+fire for such events. For events that contain a `pull_request` object, the
+base branch (target for the pull request) is used, not the head branch.
+
+The payload structure depends on the event type. Please review:
+
+```
+    https://developer.github.com/v3/activity/events/types/
+```
 
 
 
