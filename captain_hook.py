@@ -34,7 +34,7 @@ from flask import Flask, request, abort
 
 application = Flask(__name__)
 
-logging.basicConfig(filename='/captain_hook.log',
+logging.basicConfig(filename='/tmp/captain_hook.log',
                     filemode='a',
                     level=logging.DEBUG)
 
@@ -88,12 +88,12 @@ def index():
             if payload['ref_type'] == 'branch':
                 branch = payload['ref']
 
-        ### # Case 2: a pull_request object is involved. This is pull_request and
-        ### # pull_request_review_comment events.
-        ### elif 'pull_request' in payload:
-        ###     # This is the TARGET branch for the pull-request, not the source
-        ###     # branch
-        ###     branch = payload['pull_request']['base']['ref']
+        # Case 2: a pull_request object is involved. This is pull_request and
+        # pull_request_review_comment events.
+        elif 'pull_request' in payload:
+            # This is the TARGET branch for the pull-request, not the source
+            # branch
+            branch = payload['pull_request']['base']['ref']
 
         elif event in ['push']:
             # Push events provide a full Git ref in 'ref' and not a 'ref_type'.
