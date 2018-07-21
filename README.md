@@ -23,8 +23,17 @@ sudo pip install -r requirements.txt
 
 ## Setup
 
-This requires a config file. See `config.json`.
+This requires a config file. See `config.example.json` in this dir
+for an example. It should contain:
 
+```
+{
+    "whitelist_ips": true,
+    "enforce_secret": "SOMELONGSECRETSTRINGTHATYOUPASTEINTOGITHUBORGITEAWEBINTERFACE",
+    "return_scripts_info": true,
+    "hooks_path": "/hooks"
+}
+```
 
 `enforce_secret` - require `X-Hub-Signature` in header. Not enforced if empty.
 
