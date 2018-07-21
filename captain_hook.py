@@ -47,6 +47,7 @@ def index():
 
     # Only POST is implemented
     if request.method != 'POST':
+        logging.error('ERROR: Only POST method is implemented')
         abort(501)
 
     # Load config
