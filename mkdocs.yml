@@ -24,6 +24,9 @@ theme:
 markdown_extensions:
   - admonition
 pages:
-  - 'Home':            'index.md'
-  - 'Getting Started': 'starting.md'
+  - 'Home':                     'index.md'
+  - 'Getting Started':          'starting.md'
+  - 'What is Captain Hook':     'what.md'
+  - 'Configuring Captain Hook': 'config.md'
+  - 'Captain Hook License':     'license.md'
 
