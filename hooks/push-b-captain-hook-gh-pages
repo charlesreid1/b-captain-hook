@@ -6,9 +6,8 @@ org = "bots"
 branch = "gh-pages"
 
 action = 'push'
-name = 'b-captain-hook'
-branch = 'gh-pages'
-git_url = 'https://git.charlesreid1.com/bots/b-captain-hook.git'
+name = '%s'%(repo)
+git_url = 'https://git.charlesreid1.com/%s/%s.git'%(org,repo)
 
 logfile = '/tmp/{action}-{name}-{branch}.log'.format(action=action, 
                                                     name=name, 
@@ -48,10 +47,21 @@ with open(logfile,'w') as f:
         f.write("\n")
         #subprocess.call(pullcmd)
         p = subprocess.Popen(pullcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        f.write(p.stdout.readline())
-        f.write(p.stderr.readline())
+        f.write(p.stdout.readline().decode('utf-8'))
+        f.write(p.stderr.readline().decode('utf-8'))
     
     else:
+        # clean
+        f.write("Cleaning out git dir:\n")
+        f.write("    $ rm -fr %s"%(gitdir))
+        if( os.path.isdir( gitdir ) ):
+            subprocess.call(['rm','-fr',gitdir])
+
+        f.write("Cleaning out work dir:\n")
+        f.write("    $ rm -fr %s"%(workdir))
+        if( os.path.isdir( workdir) ):
+            subprocess.call(['rm','-fr',workdir])
+
         # clone
         mkdircmd = ["mkdir","-p",basedir]
         clonecmd = ["git","clone","--separate-git-dir=%s"%(gitdir),"-b","gh-pages",git_url,workdir]
@@ -59,6 +69,7 @@ with open(logfile,'w') as f:
         f.write("    $ " + " ".join(clonecmd))
         f.write("\n")
         p = subprocess.Popen(clonecmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        f.write(p.stdout.readline())
-        f.write(p.stderr.readline())
+        f.write(p.stdout.readline().decode('utf-8'))
+        f.write(p.stderr.readline().decode('utf-8'))
+
 
