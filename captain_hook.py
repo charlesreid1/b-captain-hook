@@ -1,5 +1,6 @@
 import os
 import logging
+import subprocess
 from tempfile import mkstemp
 from os import access, X_OK, remove, fdopen
 import requests
@@ -126,9 +127,9 @@ def index():
     ran = {}
     for s in scripts:
 
-        proc = Popen(
+        proc = subprocess.Popen(
             [s, tmpfile, event],
-            stdout=PIPE, stderr=PIPE
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
         stdout, stderr = proc.communicate()
 
