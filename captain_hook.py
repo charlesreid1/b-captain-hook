@@ -96,12 +96,12 @@ def index():
     # Possible hooks
     hooks = []
     if branch and name:
-        scripts.append(os.path.join(hooks_path, '{event}-{name}-{branch}'.format(**meta)))
+        hooks.append(os.path.join(hooks_path, '{event}-{name}-{branch}'.format(**meta)))
     if name:
-        scripts.append(os.path.join(hooks_path, '{event}-{name}'.format(**meta)))
+        hooks.append(os.path.join(hooks_path, '{event}-{name}'.format(**meta)))
 
-    scripts.append(os.path.join(hooks_path, '{event}'.format(**meta)))
-    scripts.append(os.path.join(hooks_path, 'all'))
+    hooks.append(os.path.join(hooks_path, '{event}'.format(**meta)))
+    hooks.append(os.path.join(hooks_path, 'all'))
 
 
     #######################################################
