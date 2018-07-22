@@ -14,8 +14,8 @@ theme:
   name: null
   custom_dir: 'mkdocs-material/material'
   palette:
-    primary: 'yellow'
-    accent: 'yellow'
+    primary: 'orange'
+    accent: 'orange'
   logo:
     icon: 'rowing'
   font:
