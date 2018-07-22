@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://pages.charlesreid1.com/b-captain-hook/starting/">
+        <link rel="canonical" href="https://pages.charlesreid1.com/b-captain-hook/license/">
       
       
       
@@ -38,7 +38,7 @@
     
     
       
-        <title>Getting Started - captain hook</title>
+        <title>Captain Hook License - captain hook</title>
       
     
     
@@ -78,7 +78,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#starting-captain-hook" tabindex="1" class="md-skip">
+      <a href="#license-for-fork" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -104,7 +104,7 @@
                 captain hook
               </span>
               <span class="md-header-nav__topic">
-                Getting Started
+                Captain Hook License
               </span>
             
           
@@ -218,69 +218,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Getting Started
-      </label>
-    
-    <a href="./" title="Getting Started" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../starting/" title="Getting Started" class="md-nav__link">
       Getting Started
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#captain-hook-docker-pod" title="Captain Hook Docker "Pod"" class="md-nav__link">
-    Captain Hook Docker "Pod"
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#startup-service-captain-hook-docker-pod" title="Startup Service: Captain Hook Docker Pod" class="md-nav__link">
-    Startup Service: Captain Hook Docker Pod
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#startup-service-captain-hook-canary" title="Startup Service: Captain Hook Canary" class="md-nav__link">
-    Startup Service: Captain Hook Canary
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -312,11 +254,52 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../license/" title="Captain Hook License" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Captain Hook License
+      </label>
+    
+    <a href="./" title="Captain Hook License" class="md-nav__link md-nav__link--active">
       Captain Hook License
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#license-for-fork" title="License for Fork" class="md-nav__link">
+    License for Fork
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-from-forked-repo" title="License from Forked Repo" class="md-nav__link">
+    License from Forked Repo
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -334,35 +317,20 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#captain-hook-docker-pod" title="Captain Hook Docker "Pod"" class="md-nav__link">
-    Captain Hook Docker "Pod"
+  <a href="#license-for-fork" title="License for Fork" class="md-nav__link">
+    License for Fork
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#startup-service-captain-hook-docker-pod" title="Startup Service: Captain Hook Docker Pod" class="md-nav__link">
-    Startup Service: Captain Hook Docker Pod
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#startup-service-captain-hook-canary" title="Startup Service: Captain Hook Canary" class="md-nav__link">
-    Startup Service: Captain Hook Canary
+  <a href="#license-from-forked-repo" title="License from Forked Repo" class="md-nav__link">
+    License from Forked Repo
   </a>
   
 </li>
@@ -384,149 +352,45 @@
               
                 
                 
-                <h1 id="starting-captain-hook">Starting Captain Hook</h1>
-<p>NOTE: Captain Hook can be run by itself, but is designed to run
-as part of the <a href="https://git.charlesreid1.com/docker/pod-webhooks">pod-webhooks</a>
-docker pod. Instructions below are not guaranteed to work outside of
-the docker pod.</p>
-<h2 id="captain-hook-docker-pod">Captain Hook Docker "Pod"</h2>
-<p>To run Captain Hook, we utilize a Docker compose file
-to run the container that runs Captain Hook and mounts the
-correct directories in the correct locations.</p>
-<p>See <a href="https://github.com/charlesreid1/b-captain-hook/blob/master/docker-compose.yml">docker-compose.yml</a>
-in the Captain Hook repository.</p>
-<p>This is a one-container pod.</p>
-<p>To start/stop/build it,</p>
-<pre><code>docker-compose up -d   # start in background
-docker-compose down
-docker-compose build
+                  <h1>Captain Hook License</h1>
+                
+                <h2 id="license-for-fork">License for Fork</h2>
+<pre><code class="plain">Copyright (c) 2018 Charles Reid
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 </code></pre>
 
-<p>To rebuild from scratch,</p>
-<pre><code>docker-compose build --no-cache
-</code></pre>
+<h2 id="license-from-forked-repo">License from Forked Repo</h2>
+<pre><code class="plain">Copyright (C) 2014-2015 Carlos Jenkins &lt;carlos@jenkins.co.cr&gt;
 
-<h3 id="startup-service-captain-hook-docker-pod">Startup Service: Captain Hook Docker Pod</h3>
-<p>In order to start the Captain Hook docker pod automatically
-at startup, and automatically restart the pod if it crashes or
-is stopped, we install a startup service called <code>dockerpod-captainhook</code>:</p>
-<pre><code>[Unit]
-Description=captain hook webhook server docker pod
-Requires=docker.service
-After=docker.service
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-[Service]
-Restart=always
-ExecStart=/usr/local/bin/docker-compose -f /home/charles/codes/bots/b-captain-hook/docker-compose.yml up
-ExecStop=/usr/local/bin/docker-compose  -f /home/charles/codes/bots/b-captain-hook/docker-compose.yml down
+http://www.apache.org/licenses/LICENSE-2.0
 
-[Install]
-WantedBy=default.target
-</code></pre>
-
-<p>This startup service runs <code>docker-compose</code> with the <code>-f</code> flag to specify
-an absolute path to the Captain Hook <code>docker-compose.yml</code> file.</p>
-<h2 id="startup-service-captain-hook-canary">Startup Service: Captain Hook Canary</h2>
-<p>Captain Hook listens for incoming web hooks and (optionally) runs a script in the <code>hooks/</code>
-folder, based on the type of action, the name of the repository, and the
-name of the branch.</p>
-<p>However, there is one tricky task: Captain Hook must be able update <em>itself</em>
-when there are changes pushed to the Captain Hook repository.</p>
-<p>To resolve this, we run a "canary" startup service for Captain Hook.
-This canary startup service runs a shell script that checks (every 10 seconds)
-for the presence of a file at <code>/tmp/triggers/</code>.  If this file is present, the
-host copy of Captain Hook is updated, the Captain Hook docker pod is restarted,
-and the trigger file is removed.</p>
-<p>This allows webhooks received by Captain Hook (which occur <em>inside</em> of a Docker
-container) to trigger an event on the host machine by bind-mounting
-<code>/tmp/triggers/</code> and adding a file to this directory.</p>
-<p><strong><code>captain-hook-canary.service</code>:</strong></p>
-<pre><code>[Unit]
-Description=captain hook canary script
-Requires=dockerpod-captainhook.service
-After=dockerpod-captainhook.service
-
-[Service]
-Restart=always
-ExecStart=/home/charles/blackbeard_scripts/captain_hook_canary.sh
-ExecStop=/usr/bin/pgrep -f captain_hook_canary | /usr/bin/xargs /bin/kill 
-
-[Install]
-WantedBy=default.target
-</code></pre>
-
-<p>Also see <a href="https://git.charlesreid1.com/dotfiles/debian/src/branch/master/services/captain-hook-canary.service">captain-hook-canary.service</a>
-in <a href="https://git.charlesreid1.com/dotfiles/debian">https://git.charlesreid1.com/dotfiles/debian</a>.</p>
-<p>This script calls the Captain Hook canary script, which is given below:</p>
-<p><strong><code>captain_hook_canary.sh</code>:</strong></p>
-<pre><code>#!/bin/bash
-
-: '
-Captain Hook Canary Script
-
-
-Note: this needs an associated systemd service.
-See the services directory of the dotfiles repo.
-
-(snip comments)
-'
-
-while true
-do
-    # bootstrap-pull captain hook
-    if [ -f &quot;/tmp/triggers/push-b-captain-hook-master&quot; ]; then
-        echo &quot;CAPTAIN HOOK'S CANARY:&quot;
-        echo &quot;Running trigger to update Captain Hook on the host machine (user charles)&quot;
-        sudo -H -u charles python /home/charles/blackbeard_scripts/captain_hook_pull_host.py
-        echo &quot;All done.&quot;
-        rm -f &quot;/tmp/triggers/push-b-captain-hook-master&quot;
-    fi
-
-    sleep 10;
-done
-</code></pre>
-
-<p>Also see <a href="https://git.charlesreid1.com/dotfiles/debian/src/branch/master/dotfiles/blackbeard_scripts/captain_hook_canary.sh">captain_hook_canary.sh</a>
-in the <code>dotfiles/blackbeard_scripts</code> folder of
-<a href="https://git.charlesreid1.com/dotfiles/debian">https://git.charlesreid1.com/dotfiles/debian</a>.</p>
-<p>When this canary script for Captain Hook is triggered by the presence of
-a file at <code>/tmp/triggers/push-b-captain-hook-master</code> (which is mounted
-inside the container at th same location as outside the container), it will
-run a script to pull Captain Hook:</p>
-<p><strong><code>captain_hook_pull_host.py</code>:</strong></p>
-<pre><code>#!/usr/bin/env python3
-import subprocess
-import os
-import time
-
-&quot;&quot;&quot;
-Captain Hook: Pull Captain Hook on the Host 
-
-This script is called by the host machine 
-(blackbeard) running the Captain Hook container.
-
-This is triggered by push actions to the 
-master branch of b-captain-hook.
-
-The action is to update (git pull) the copy 
-of captain hook running on the host, and
-restart the container pod.
-&quot;&quot;&quot;
-
-work_dir = os.path.join('/home','charles','codes','bots','b-captain-hook')
-
-# Step 1:
-# Update Captain Hook
-pull_cmd = ['git','pull','origin','master']
-subprocess.call(pull_cmd, cwd=work_dir)
-
-time.sleep(5)
-
-# Step 2:
-# Restart Captain Hook pod
-pod_restart = ['docker-compose','restart']
-subprocess.call(pod_restart, cwd=work_dir)
-
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+&quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
 </code></pre>
                 
                   
@@ -548,7 +412,7 @@ subprocess.call(pod_restart, cwd=work_dir)
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../config/" title="Configuring Captain Hook" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -557,25 +421,11 @@ subprocess.call(pod_restart, cwd=work_dir)
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Home
+                Configuring Captain Hook
               </span>
             </div>
           </a>
         
-        
-          <a href="../what/" title="What is Captain Hook" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                What is Captain Hook
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
         
       </nav>
     </div>
