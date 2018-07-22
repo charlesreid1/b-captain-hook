@@ -1,15 +1,14 @@
 # b-captain-hook
 
-Captain hook is a Python WSGI appication
-taht handles webhooks from gitea
-and github.
+Captain hook is a Python WSGI appication that handles webhooks from gitea and
+github.
 
 Forked from [carlos-jenkins/python-github-webhooks](https://github.com/carlos-jenkins/python-github-webhooks.git).
 
-To install:
+To install captain hook:
 
 ```
-git clone https://git.charlesreid1.com/bots/b-captain-hook
+git clone https://git.charlesreid1.com/bots/b-captain-hook.git
 cd b-captain-hook
 ```
 
@@ -18,8 +17,11 @@ cd b-captain-hook
 Install dependencies with pip:
 
 ```
-sudo pip install -r requirements.txt
+pip install -r requirements.txt
 ```
+
+<br />
+<br />
 
 ## Setup
 
@@ -249,6 +251,10 @@ This project is just the reinterpretation and merge of two approaches:
 [github-webhook-wrapper](https://github.com/datafolklabs/github-webhook-wrapper)
 
 [flask-github-webhook](https://github.com/razius/flask-github-webhook)
+
+it is implemented with the help of python 3 alpine:
+
+[nikos/python3-alpine-flask-docker](https://github.com/nikos/python3-alpine-flask-docker)
 
 
 # More Deets

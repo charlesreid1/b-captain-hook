@@ -1,6 +1,12 @@
 # Starting Captain Hook
 
-## Captain Hook Docker Pod
+NOTE: Captain Hook can be run by itself, but is designed to run
+as part of the [pod-webhooks](https://git.charlesreid1.com/docker/pod-webhooks)
+docker pod. Instructions below are not guaranteed to work outside of
+the docker pod.
+
+
+## Captain Hook Docker "Pod"
 
 To run Captain Hook, we utilize a Docker compose file
 to run the container that runs Captain Hook and mounts the
@@ -9,7 +15,24 @@ correct directories in the correct locations.
 See [docker-compose.yml](https://github.com/charlesreid1/b-captain-hook/blob/master/docker-compose.yml)
 in the Captain Hook repository.
 
-## Startup Service: Captain Hook Docker Pod
+This is a one-container pod.
+
+To start/stop/build it,
+
+```
+docker-compose up -d   # start in background
+docker-compose down
+docker-compose build
+```
+
+To rebuild from scratch,
+
+```
+docker-compose build --no-cache
+```
+
+
+### Startup Service: Captain Hook Docker Pod
 
 In order to start the Captain Hook docker pod automatically
 at startup, and automatically restart the pod if it crashes or
@@ -32,6 +55,7 @@ WantedBy=default.target
 
 This startup service runs `docker-compose` with the `-f` flag to specify
 an absolute path to the Captain Hook `docker-compose.yml` file.
+
 
 ## Startup Service: Captain Hook Canary
 
@@ -150,7 +174,5 @@ pod_restart = ['docker-compose','restart']
 subprocess.call(pod_restart, cwd=work_dir)
 
 ```
-
-
 
 

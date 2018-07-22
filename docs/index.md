@@ -17,7 +17,7 @@ cd b-captain-hook
 Install dependencies with pip:
 
 ```
-sudo pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 <br />
@@ -306,8 +306,33 @@ and this will show exceptions on the screen
 (but it won't show anything else useful...)
 
 
+## License for Fork 
+
+```plain
+Copyright (c) 2018 Charles Reid
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
 ## License from Forked Repo
 
+```plain
 Copyright (C) 2014-2015 Carlos Jenkins <carlos@jenkins.co.cr>
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -322,6 +347,7 @@ software distributed under the License is distributed on an
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
+```
 
 
 ## Credits
@@ -331,4 +357,17 @@ This project is just the reinterpretation and merge of two approaches:
 [github-webhook-wrapper](https://github.com/datafolklabs/github-webhook-wrapper)
 
 [flask-github-webhook](https://github.com/razius/flask-github-webhook)
+
+it is implemented with the help of python 3 alpine:
+
+[nikos/python3-alpine-flask-docker](https://github.com/nikos/python3-alpine-flask-docker)
+
+
+# More Deets
+
+Self-updating hooks: create mounted, shared directory
+and create a canary watcher on the host.
+
+Push events from container to host via presence of file,
+container takes action and removes file.
 
