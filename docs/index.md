@@ -10,45 +10,26 @@ To install captain hook:
 ```
 git clone https://git.charlesreid1.com/bots/b-captain-hook.git
 cd b-captain-hook
-```
-
-## Dependencies
-
-Install dependencies with pip:
-
-```
 pip install -r requirements.txt
 ```
 
-<br />
-<br />
+Now run it:
+
+```
+python captain_hook.py
+```
+
 
 ## What is Captain Hook?
 
-### The Short Version
+Captain Hook is a flask webhook server that runs via docker.
 
-Captain Hook enables a Github Pages-like push-to-deploy setup for git.charlesreid1.com.
+See [What is Captain Hook?](what.md) for an explanation.
 
-Installing webhooks into repositories on <https://git.charlesreid1.com>
-allows the `gh-pages` branch of the given repository to be hosted live on
-<https://pages.charlesreid1.com>.
+## Configuring Captain Hook
 
-### The Long Version
-
-Captain Hook is a Python Flask server that listens for incoming web hooks from
-Gitea (or Github), and uses those web hooks to deply pages to <https://pages.charlesreid1.com>.
-
-Captain Hook works by providing a webhook endpoint (rounting provided by nginx
-container in [pod-charlesreid1](https://git.charlesreid1.com/docker/pod-charlesreid))
-that can be used to link a Gitea (or Github) repository to Captain Hook.
-
-Gitea (and Github) send payloads with webhooks that specify information like the
-action that triggered the webhook, and the repository/branch on which the
-action was performed.
-
-Captain Hook runs inside of a docker container. The docker container mounts the
-pages.charlesreid1.com web directory inside the container. Generally the hook
-scripts will deploy the `gh-apges` branch to this web directory.
+Captain Hook requires a config file. See `config.example.json` in this 
+directory, and the [Captain Hook Config](config.md) page.
 
 ## Starting Captain Hook
 
@@ -56,30 +37,38 @@ See [Starting Captain Hook](starting.md) for how to set up the various startup s
 and docker pods that are required to run Captain Hook.
 
 
-<br />
-<br />
-
 ## Adding Hooks
 
-Captain Hook will accept any incoming web hook that reaches it,
-bt it will only run scripts if the event, repository name, and/or
-branch to which changes were made matches the name of a script.
+Captain Hook accepts incoming webhooks and checks for scripts in `hooks/`
+that match the action performed on the given repository.
 
-To add a new script to be triggered on a particular web hook:
+A webhook script is anything that is executable.
+
+To add a new script to be triggered on a particular webhook,
+put it in the `hooks/` directory and follow the naming convention:
 
 ```
-    hooks/{event}-{name}-{branch}
-    hooks/{event}-{name}
-    hooks/{event}
-    hooks/all
+b-captain-hook/
+        hooks/{event}-{name}-{branch}
+        hooks/{event}-{name}
+        hooks/{event}
+        hooks/all
 ```
 
 
 For example, suppose I performed a `push` action to a repository
 named `happy-giraffe`, and I was pushing commits to the `gh-pages`
 branch. Then the webhook sent to Captain Hook would contain this
-information, and Captain Hook would only run relevant scripts:
-(in this case, `hooks/{event}-{name}-{branch}`).
+information, and Captain Hook would only look for the following
+scripts, and run them if present:
+
+```
+b-captain-hook/
+        hooks/push-happy-giraffe-gh-pages
+        hooks/push-happy-giraffe
+        hooks/push
+        hooks/all
+```
 
 The application passes the path to a JSON file, while holding the payload
 for the request as the first argument. Suppose we had an event where someone
@@ -98,7 +87,7 @@ payload for the request as first argument. The event type will be passed
 as second argument. For example:
 
 ```
-    hooks/push-myrepo-master /tmp/sXFHji push
+    hooks/push-happy-giraffe-master /tmp/sXFHji push
 ```
 
 Hooks can be written in any scripting language as long as the file is
@@ -107,7 +96,7 @@ executable and has a shebang. A simple example in Python could be:
 ```
     #!/usr/bin/env python
     # Python Example for Python GitHub Webhooks
-    # File: push-myrepo-master
+    # File: push-happy-giraffe-master
 
     import sys
     import json
@@ -133,79 +122,6 @@ The payload structure depends on the event type. Please review:
     https://developer.github.com/v3/activity/events/types/
 ```
 
-
-
-
-
-# =======================================
-
-
-This requires a config file. See `config.json`.
-
-
-`enforce_secret` - require `X-Hub-Signature` in header. Not enforced if empty.
-
-`return_scripts_info` - return a JSON with the `stdout`, `stderr` and exit
-code for each executed hook using the hook name as key. If this option is set
-you will be able to see the result of your hooks from within your GitHub
-hooks configuration page (see "Recent Deliveries").
-
-`hooks_path` - Configures a path to import the hooks. Example: `/app/hooks`
-
-
-## Adding Hooks
-
-This application will execute scripts in the hooks directory using the
-following order:
-
-(TODO: fix)
-
-```
-    hooks/{event}-{name}-{branch}
-    hooks/{event}-{name}
-    hooks/{event}
-    hooks/all
-```
-
-The application will pass to the hooks the path to a JSON file holding the
-payload for the request as first argument. The event type will be passed
-as second argument. For example:
-
-```
-    hooks/push-myrepo-master /tmp/sXFHji push
-```
-
-Hooks can be written in any scripting language as long as the file is
-executable and has a shebang. A simple example in Python could be:
-
-```
-    #!/usr/bin/env python
-    # Python Example for Python GitHub Webhooks
-    # File: push-myrepo-master
-
-    import sys
-    import json
-
-    with open(sys.argv[1], 'r') as jsf:
-      payload = json.loads(jsf.read())
-
-    ### Do something with the payload
-    name = payload['repository']['name']
-    outfile = '/tmp/hook-{}.log'.format(name)
-
-    with open(outfile, 'w') as f:
-        f.write(json.dumps(payload))
-```
-
-Not all events have an associated branch, so a branch-specific hook cannot
-fire for such events. For events that contain a `pull_request` object, the
-base branch (target for the pull request) is used, not the head branch.
-
-The payload structure depends on the event type. Please review:
-
-```
-    https://developer.github.com/v3/activity/events/types/
-```
 
 
 ## Docker Deployment
@@ -306,49 +222,10 @@ and this will show exceptions on the screen
 (but it won't show anything else useful...)
 
 
-## License for Fork 
+## Licenses
 
-```plain
-Copyright (c) 2018 Charles Reid
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
-## License from Forked Repo
-
-```plain
-Copyright (C) 2014-2015 Carlos Jenkins <carlos@jenkins.co.cr>
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-```
-
+Original license (Charles Reid) and forked license
+(Carlos Jenkins) given in [license.md](license.md)
 
 ## Credits
 
@@ -358,16 +235,8 @@ This project is just the reinterpretation and merge of two approaches:
 
 [flask-github-webhook](https://github.com/razius/flask-github-webhook)
 
-it is implemented with the help of python 3 alpine:
+It is implemented with the help of python 3 alpine:
 
 [nikos/python3-alpine-flask-docker](https://github.com/nikos/python3-alpine-flask-docker)
 
-
-# More Deets
-
-Self-updating hooks: create mounted, shared directory
-and create a canary watcher on the host.
-
-Push events from container to host via presence of file,
-container takes action and removes file.
 
