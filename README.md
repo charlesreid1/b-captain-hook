@@ -52,8 +52,6 @@ hooks configuration page (see "Recent Deliveries").
 This application will execute scripts in the hooks directory using the
 following order:
 
-(TODO: fix)
-
 ```
     hooks/{event}-{name}-{branch}
     hooks/{event}-{name}
