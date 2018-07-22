@@ -1,4 +1,5 @@
 import os
+import logging
 from os.path import join, isfile, basename
 import requests
 import json
@@ -12,11 +13,12 @@ logging.basicConfig(filename='/tmp/captain_hook.log',
                     level=logging.DEBUG)
 
 
-@application.route('/webhook', methods=['GET', 'POST'])
+@app.route('/webhook', methods=['GET', 'POST'])
 def index():
     """
     Main WSGI application entry.
     """
+    path = os.path.dirname(os.path.abspath(__file__))
 
     # Only POST is implemented
     if request.method != 'POST':
