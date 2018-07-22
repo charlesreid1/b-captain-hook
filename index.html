@@ -152,7 +152,7 @@
   <a href="https://git.charlesreid1.com/bots/b-captain-hook" title="Go to repository" class="md-source" data-md-source="">
     
     <div class="md-source__repository">
-      pod-charlesreid1
+      captain-hook
     </div>
   </a>
 
@@ -194,7 +194,7 @@
   <a href="https://git.charlesreid1.com/bots/b-captain-hook" title="Go to repository" class="md-source" data-md-source="">
     
     <div class="md-source__repository">
-      pod-charlesreid1
+      captain-hook
     </div>
   </a>
 
@@ -242,44 +242,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup" title="Setup" class="md-nav__link">
-    Setup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adding-hooks" title="Adding Hooks" class="md-nav__link">
-    Adding Hooks
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-deployment" title="Docker Deployment" class="md-nav__link">
-    Docker Deployment
+  <a href="#what-is-captain-hook" title="What is Captain Hook?" class="md-nav__link">
+    What is Captain Hook?
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ports" title="Ports" class="md-nav__link">
-    Ports
+  <a href="#the-short-version" title="The Short Version" class="md-nav__link">
+    The Short Version
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#volumes" title="Volumes" class="md-nav__link">
-    Volumes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#testing" title="Testing" class="md-nav__link">
-    Testing
+  <a href="#the-long-version" title="The Long Version" class="md-nav__link">
+    The Long Version
   </a>
   
 </li>
@@ -290,22 +269,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#debugging" title="Debugging" class="md-nav__link">
-    Debugging
+  <a href="#starting-captain-hook" title="Starting Captain Hook" class="md-nav__link">
+    Starting Captain Hook
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#license-from-forked-repo" title="License from Forked Repo" class="md-nav__link">
-    License from Forked Repo
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#credits" title="Credits" class="md-nav__link">
-    Credits
+  <a href="#adding-hooks" title="Adding Hooks" class="md-nav__link">
+    Adding Hooks
   </a>
   
 </li>
@@ -318,6 +290,18 @@
   
 </nav>
     
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="starting/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
   </li>
 
     
@@ -349,44 +333,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup" title="Setup" class="md-nav__link">
-    Setup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adding-hooks" title="Adding Hooks" class="md-nav__link">
-    Adding Hooks
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-deployment" title="Docker Deployment" class="md-nav__link">
-    Docker Deployment
+  <a href="#what-is-captain-hook" title="What is Captain Hook?" class="md-nav__link">
+    What is Captain Hook?
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ports" title="Ports" class="md-nav__link">
-    Ports
+  <a href="#the-short-version" title="The Short Version" class="md-nav__link">
+    The Short Version
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#volumes" title="Volumes" class="md-nav__link">
-    Volumes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#testing" title="Testing" class="md-nav__link">
-    Testing
+  <a href="#the-long-version" title="The Long Version" class="md-nav__link">
+    The Long Version
   </a>
   
 </li>
@@ -397,22 +360,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#debugging" title="Debugging" class="md-nav__link">
-    Debugging
+  <a href="#starting-captain-hook" title="Starting Captain Hook" class="md-nav__link">
+    Starting Captain Hook
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#license-from-forked-repo" title="License from Forked Repo" class="md-nav__link">
-    License from Forked Repo
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#credits" title="Credits" class="md-nav__link">
-    Credits
+  <a href="#adding-hooks" title="Adding Hooks" class="md-nav__link">
+    Adding Hooks
   </a>
   
 </li>
@@ -435,13 +391,12 @@
                 
                 
                 <h1 id="b-captain-hook">b-captain-hook</h1>
-<p>Captain hook is a Python WSGI appication
-taht handles webhooks from gitea
-and github.</p>
+<p>Captain hook is a Python WSGI appication that handles webhooks from gitea and
+github.</p>
 <p>Forked from <a href="https://github.com/carlos-jenkins/python-github-webhooks.git">carlos-jenkins/python-github-webhooks</a>.</p>
-<p>To install:</p>
-<pre><code>git clone https://github.com/carlos-jenkins/python-github-webhooks.git
-cd python-github-webhooks
+<p>To install captain hook:</p>
+<pre><code>git clone https://git.charlesreid1.com/bots/b-captain-hook.git
+cd b-captain-hook
 </code></pre>
 
 <h2 id="dependencies">Dependencies</h2>
@@ -449,7 +404,95 @@ cd python-github-webhooks
 <pre><code>sudo pip install -r requirements.txt
 </code></pre>
 
-<h2 id="setup">Setup</h2>
+<p><br />
+<br /></p>
+<h2 id="what-is-captain-hook">What is Captain Hook?</h2>
+<h3 id="the-short-version">The Short Version</h3>
+<p>Captain Hook enables a Github Pages-like push-to-deploy setup for git.charlesreid1.com.</p>
+<p>Installing webhooks into repositories on <a href="https://git.charlesreid1.com">https://git.charlesreid1.com</a>
+allows the <code>gh-pages</code> branch of the given repository to be hosted live on
+<a href="https://pages.charlesreid1.com">https://pages.charlesreid1.com</a>.</p>
+<h3 id="the-long-version">The Long Version</h3>
+<p>Captain Hook is a Python Flask server that listens for incoming web hooks from
+Gitea (or Github), and uses those web hooks to deply pages to <a href="https://pages.charlesreid1.com">https://pages.charlesreid1.com</a>.</p>
+<p>Captain Hook works by providing a webhook endpoint (rounting provided by nginx
+container in <a href="https://git.charlesreid1.com/docker/pod-charlesreid">pod-charlesreid1</a>)
+that can be used to link a Gitea (or Github) repository to Captain Hook.</p>
+<p>Gitea (and Github) send payloads with webhooks that specify information like the
+action that triggered the webhook, and the repository/branch on which the
+action was performed.</p>
+<p>Captain Hook runs inside of a docker container. The docker container mounts the
+pages.charlesreid1.com web directory inside the container. Generally the hook
+scripts will deploy the <code>gh-apges</code> branch to this web directory.</p>
+<h2 id="starting-captain-hook">Starting Captain Hook</h2>
+<p>See <a href="starting/">Starting Captain Hook</a> for how to set up the various startup services
+and docker pods that are required to run Captain Hook.</p>
+<p><br />
+<br /></p>
+<h2 id="adding-hooks">Adding Hooks</h2>
+<p>Captain Hook will accept any incoming web hook that reaches it,
+bt it will only run scripts if the event, repository name, and/or
+branch to which changes were made matches the name of a script.</p>
+<p>To add a new script to be triggered on a particular web hook:</p>
+<pre><code>    hooks/{event}-{name}-{branch}
+    hooks/{event}-{name}
+    hooks/{event}
+    hooks/all
+</code></pre>
+
+<p>For example, suppose I performed a <code>push</code> action to a repository
+named <code>happy-giraffe</code>, and I was pushing commits to the <code>gh-pages</code>
+branch. Then the webhook sent to Captain Hook would contain this
+information, and Captain Hook would only run relevant scripts:
+(in this case, <code>hooks/{event}-{name}-{branch}</code>).</p>
+<p>The application passes the path to a JSON file, while holding the payload
+for the request as the first argument. Suppose we had an event where someone
+pushed to the <code>happy-giraffe</code> repository, to the <code>gh-pages</code> branch. </p>
+<p>The application will pass in two pieces of information:</p>
+<ul>
+<li>
+<p>Path to JSON file holding payload - the first part of the request
+  is a JSON file that holds the payload for the request.</p>
+</li>
+<li>
+<p>The other piece of information passed is the name of the action
+    (e.g., <code>push</code>)</p>
+</li>
+</ul>
+<p>The application will pass to the hooks the path to a JSON file holding the
+payload for the request as first argument. The event type will be passed
+as second argument. For example:</p>
+<pre><code>    hooks/push-myrepo-master /tmp/sXFHji push
+</code></pre>
+
+<p>Hooks can be written in any scripting language as long as the file is
+executable and has a shebang. A simple example in Python could be:</p>
+<pre><code>    #!/usr/bin/env python
+    # Python Example for Python GitHub Webhooks
+    # File: push-myrepo-master
+
+    import sys
+    import json
+
+    with open(sys.argv[1], 'r') as jsf:
+      payload = json.loads(jsf.read())
+
+    ### Do something with the payload
+    name = payload['repository']['name']
+    outfile = '/tmp/hook-{}.log'.format(name)
+
+    with open(outfile, 'w') as f:
+        f.write(json.dumps(payload))
+</code></pre>
+
+<p>Not all events have an associated branch, so a branch-specific hook cannot
+fire for such events. For events that contain a <code>pull_request</code> object, the
+base branch (target for the pull request) is used, not the head branch.</p>
+<p>The payload structure depends on the event type. Please review:</p>
+<pre><code>    https://developer.github.com/v3/activity/events/types/
+</code></pre>
+
+<h1 id="_1">=======================================</h1>
 <p>This requires a config file. See <code>config.json</code>.</p>
 <p><code>enforce_secret</code> - require <code>X-Hub-Signature</code> in header. Not enforced if empty.</p>
 <p><code>return_scripts_info</code> - return a JSON with the <code>stdout</code>, <code>stderr</code> and exit
@@ -457,7 +500,7 @@ code for each executed hook using the hook name as key. If this option is set
 you will be able to see the result of your hooks from within your GitHub
 hooks configuration page (see "Recent Deliveries").</p>
 <p><code>hooks_path</code> - Configures a path to import the hooks. Example: <code>/app/hooks</code></p>
-<h2 id="adding-hooks">Adding Hooks</h2>
+<h2 id="adding-hooks_1">Adding Hooks</h2>
 <p>This application will execute scripts in the hooks directory using the
 following order:</p>
 <p>(TODO: fix)</p>
@@ -596,6 +639,27 @@ under the License.</p>
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+        
+          <a href="starting/" title="Getting Started" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Getting Started
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
