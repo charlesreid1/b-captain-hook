@@ -1,6 +1,7 @@
 import os
 import logging
 from os.path import join, isfile, basename
+from os import access, X_OK, remove, fdopen
 import requests
 import json
 from flask import Flask, request, abort
@@ -30,6 +31,7 @@ def index():
         config = json.loads(cfg.read())
 
     hooks = config.get('hooks_path', join(path, 'hooks'))
+    logging.info("Hooks path: %s"%(hooks))
 
     # Implement ping/pong
     event = request.headers.get('X-GitHub-Event', 'ping')
@@ -147,10 +149,6 @@ def index():
 
     return output
 
-
-@app.route('/')
-def hello():
-    return 'Hello Flask from alpine-linux!'
 
 
 if __name__ == '__main__':
