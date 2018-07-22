@@ -51,6 +51,17 @@ with open(logfile,'w') as f:
         f.write(str(p.stderr.readline()))
     
     else:
+        # clean
+        f.write("Cleaning out git dir:\n")
+        f.write("    $ rm -fr %s"%(gitdir))
+        if( os.path.isdir( gitdir ) ):
+            subprocess.call(['rm','-fr',gitdir])
+
+        f.write("Cleaning out work dir:\n")
+        f.write("    $ rm -fr %s"%(workdir))
+        if( os.path.isdir( workdir) ):
+            subprocess.call(['rm','-fr',workdir])
+
         # clone
         mkdircmd = ["mkdir","-p",basedir]
         clonecmd = ["git","clone","--separate-git-dir=%s"%(gitdir),"-b","gh-pages",git_url,workdir]
