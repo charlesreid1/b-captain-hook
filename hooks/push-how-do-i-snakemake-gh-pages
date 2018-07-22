@@ -5,7 +5,7 @@ repo = "how-do-i-snakemake"
 org = "charlesreid1"
 branch = "gh-pages"
 
-action = 'push'
+action = "push"
 name = '%s'%(repo)
 git_url = 'https://git.charlesreid1.com/%s/%s.git'%(org,repo)
 
