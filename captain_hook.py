@@ -1,6 +1,6 @@
 import os
 import logging
-from os.path import join, isfile, basename
+from tempfile import mkstemp
 from os import access, X_OK, remove, fdopen
 import requests
 import json
@@ -27,11 +27,11 @@ def index():
         abort(501)
 
     # Load config
-    with open(join(path, 'config.json'), 'r') as cfg:
+    with open(os.path.join(path, 'config.json'), 'r') as cfg:
         config = json.loads(cfg.read())
 
-    hooks = config.get('hooks_path', join(path, 'hooks'))
-    logging.info("Hooks path: %s"%(hooks))
+    hooks_path = config.get('hooks_path', os.path.join(path, 'hooks'))
+    logging.info("Hooks path: %s"%(hooks_path))
 
     # Implement ping/pong
     event = request.headers.get('X-GitHub-Event', 'ping')
@@ -41,6 +41,7 @@ def index():
     # Gather data
     try:
         payload = request.get_json()
+
     except Exception:
         logging.warning('Request parsing failed')
         abort(400)
@@ -93,19 +94,24 @@ def index():
     }
 
     # Possible hooks
-    scripts = []
+    hooks = []
     if branch and name:
-        scripts.append(join(hooks, '{event}-{name}-{branch}'.format(**meta)))
+        scripts.append(os.path.join(hooks_path, '{event}-{name}-{branch}'.format(**meta)))
     if name:
-        scripts.append(join(hooks, '{event}-{name}'.format(**meta)))
-    scripts.append(join(hooks, '{event}'.format(**meta)))
-    scripts.append(join(hooks, 'all'))
+        scripts.append(os.path.join(hooks_path, '{event}-{name}'.format(**meta)))
+
+    scripts.append(os.path.join(hooks_path, '{event}'.format(**meta)))
+    scripts.append(os.path.join(hooks_path, 'all'))
 
 
     #######################################################
     # Check permissions
-    scripts = [s for s in scripts if isfile(s) and access(s, X_OK)]
-    if not scripts:
+    scripts = []
+    for h in hooks:
+        if os.path.isfile(h) and access(h,X_OK):
+            scripts.append(h)
+    
+    if len(scripts)==0:
         logging.warning('Scripts failed to execute')
         return json.dumps({'status': 'nop'})
     #######################################################
@@ -126,7 +132,7 @@ def index():
         )
         stdout, stderr = proc.communicate()
 
-        ran[basename(s)] = {
+        ran[os.path.basename(s)] = {
             'returncode': proc.returncode,
             'stdout': stdout.decode('utf-8'),
             'stderr': stderr.decode('utf-8'),
