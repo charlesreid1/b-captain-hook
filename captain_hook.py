@@ -27,7 +27,7 @@ def index():
 
     # Load config
     with open(join(path, 'config.json'), 'r') as cfg:
-        config = loads(cfg.read())
+        config = json.loads(cfg.read())
 
     hooks = config.get('hooks_path', join(path, 'hooks'))
 
@@ -105,13 +105,13 @@ def index():
     scripts = [s for s in scripts if isfile(s) and access(s, X_OK)]
     if not scripts:
         logging.warning('Scripts failed to execute')
-        return dumps({'status': 'nop'})
+        return json.dumps({'status': 'nop'})
     #######################################################
 
     # Save payload to temporal file
     osfd, tmpfile = mkstemp()
     with fdopen(osfd, 'w') as pf:
-        pf.write(dumps(payload))
+        pf.write(json.dumps(payload))
 
     # Run scripts
     logging.info("%s"%(scripts))
@@ -141,7 +141,7 @@ def index():
 
     info = config.get('return_scripts_info', False)
     if not info:
-        return dumps({'status': 'done'})
+        return json.dumps({'status': 'done'})
 
     output = json.dumps(ran, sort_keys=True, indent=4)
 
