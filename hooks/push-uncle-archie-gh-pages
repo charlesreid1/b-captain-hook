@@ -2,7 +2,7 @@
 from datetime import datetime
 
 # touch
-repo = "uncle-jenkins"
+repo = "uncle-archie"
 org = "bots"
 branch = "gh-pages"
 
