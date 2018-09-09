@@ -25,7 +25,8 @@ def index():
     # Only POST is implemented
     if request.method != 'POST':
         logging.error('ERROR: Only POST method is implemented')
-        abort(501)
+        #abort(501)
+        return "<h2>Captain Hook</h2><p>Unfortunately, no GET method is implemented for Captain Hook. Try a POST method.</p>"
 
     # Load config
     with open(os.path.join(path, 'config.json'), 'r') as cfg:
