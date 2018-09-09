@@ -47,8 +47,8 @@ with open(logfile,'w') as f:
         f.write("\n")
         #subprocess.call(pullcmd)
         p = subprocess.Popen(pullcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        f.write(p.stdout.readline())
-        f.write(p.stderr.readline())
+        f.write(p.stdout.readline().decode('utf-8'))
+        f.write(p.stderr.readline().decode('utf-8'))
     
     else:
         # clone
@@ -58,6 +58,6 @@ with open(logfile,'w') as f:
         f.write("    $ " + " ".join(clonecmd))
         f.write("\n")
         p = subprocess.Popen(clonecmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        f.write(p.stdout.readline())
-        f.write(p.stderr.readline())
+        f.write(p.stdout.readline().decode('utf-8'))
+        f.write(p.stderr.readline().decode('utf-8'))
 
