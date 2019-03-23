@@ -1,6 +1,6 @@
 # b-captain-hook
 
-Captain hook is a Python WSGI appication that handles webhooks from gitea and
+Captain hook is a Python WSGI application that handles webhooks from gitea and
 github.
 
 Forked from [carlos-jenkins/python-github-webhooks](https://github.com/carlos-jenkins/python-github-webhooks.git).
@@ -11,12 +11,22 @@ To install captain hook:
 git clone https://git.charlesreid1.com/bots/b-captain-hook.git
 cd b-captain-hook
 pip install -r requirements.txt
+cp config.example.json config.json
+# edit config.json
 ```
 
-Now run it:
+Run it standalone:
 
 ```
 python captain_hook.py
+```
+
+Run it with docker:
+
+```
+docker-compose build
+docker-compose up -d
+docker-compose down
 ```
 
 
@@ -29,7 +39,7 @@ See [What is Captain Hook?](what.md) for an explanation.
 ## Configuring Captain Hook
 
 Captain Hook requires a config file. See `config.example.json` in this 
-directory, and the [Captain Hook Config](config.md) page.
+directory, and the [Captain Hook Config](config.md) page for more info.
 
 ## Starting Captain Hook
 
@@ -58,9 +68,9 @@ b-captain-hook/
 
 For example, suppose I performed a `push` action to a repository
 named `happy-giraffe`, and I was pushing commits to the `gh-pages`
-branch. Then the webhook sent to Captain Hook would contain this
-information, and Captain Hook would only look for the following
-scripts, and run them if present:
+branch. The webhook sent to Captain Hook would contain this
+information, and Captain Hook would look for any webhooks with the
+following names, and run them if present:
 
 ```
 b-captain-hook/
@@ -71,8 +81,7 @@ b-captain-hook/
 ```
 
 The application passes the path to a JSON file, while holding the payload
-for the request as the first argument. Suppose we had an event where someone
-pushed to the `happy-giraffe` repository, to the `gh-pages` branch. 
+for the request as the first argument. 
 
 The application will pass in two pieces of information:
 
@@ -136,21 +145,28 @@ docker-compose up
 docker-compose down
 ```
 
+### Base Docker Image
+
+Captain Hook uses the `python3-alpine-flask` container,
+which is a very lightweight container with python 3 
+available and with flask installed.
+
+See [nikos/python3-alpine-flask-docker](https://github.com/nikos/python3-alpine-flask-docker)
+on Github.
+
 ### Ports
 
-This binds to external port 5000. 
+Captain Hook binds to external port 5000 on 
+whatever host it runs on.
 
 Implementing a secret key is critical to keep 
-captain hook from deploying random strangers' 
-webhook requests.
+captain hook from deploying webhook requests
+from random strangers.
 
-In our case, the hook is reverse-proxied by nginx on krash,
-so we know what IP to expect. 
-
-(Problems implementing IP checking - 172 subrange, not 45 subrange.)
-
-More important than validating the IP is validating the secret.
-
+**Recommendations:** You can implement validation of the
+IP address sending the webhook, but more important than 
+validating the incoming IP address (which can always be
+spoofed) is to validate the secret. 
 
 ### Volumes
 
@@ -168,7 +184,8 @@ The docker container will also mount `/www/` into the container,
 so all the static web content on the host (blackbeard) 
 is available to the webhooks to perform updates and etc.
 
-`/www` is mounted to the same place on the host and in the container:
+`/www` is mounted to the same place on the host and in the container,
+as indicated by this bind mount lin from the docker-compose file:
 
 ```
 /www:/www
@@ -176,36 +193,40 @@ is available to the webhooks to perform updates and etc.
 
 ### Testing
 
-To test, you can trigger the webhook from the 
-repository's webhooks panel.
+To test Captain Hook, install a webhook in a given
+repository and use the server running Captain Hook
+as the endpoint. Set up the secret.
 
-Keep in mind this will _only_ fire triggers
-on the master branch.
+You should be able to trigger a webhook test from the 
+repository's webhooks control panel. This should trigger
+Captain Hook, and if you've added a script for the 
+corresponding repository, it should be triggered by the test.
+
+Keep in mind that Gitea/Github will _only_ fire triggers
+on the master branch of a repository, so you can't test
+arbitrary branches using this method.
 
 
 ## Debugging
 
-This container is an absolute pain in the ass to debug, 
-and uses python 2 to boot. 
+To get into test/debug mode:
 
-But it was the only thing working.
-
-To test: 
-
+* Set up a "dummy" hook (the Python hook shown above) that will just log the webhook to a log file in `/tmp`
 * Run the server in one window
 * In a second window, open a shell in the container and monitor `/tmp/*.log`
 * In a third window, open a shell in the container and monitor `/www/*`
 
-To open a shell in the container:
+To open a shell inside the container, run this command 
+from the host machine:
 
 ```
 docker exec -it <name-of-container> /bin/sh
 ```
 
-Remember you only have `/bin/sh` and `python2`,
-no `bash` and no `python3`.
+Remember that when you are inside this container, you will only have
+`/bin/sh` available - no `bash`.
 
-To check logs:
+To check logs of this container, run this from the host machine:
 
 ```
 docker logs -f <container-name>
@@ -224,8 +245,9 @@ and this will show exceptions on the screen
 
 ## Licenses
 
-Original license (Charles Reid) and forked license
-(Carlos Jenkins) given in [license.md](license.md)
+Original license (Carlos Jenkins) and forked license
+(Charles Reid) given in [license.md](license.md)
+
 
 ## Credits
 
