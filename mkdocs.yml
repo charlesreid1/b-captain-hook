@@ -14,8 +14,8 @@ theme:
   name: null
   custom_dir: 'mkdocs-material/material'
   palette:
-    primary: 'orange'
-    accent: 'orange'
+    primary: 'amber'
+    accent: 'amber'
   logo:
     icon: 'rowing'
   font:
@@ -23,7 +23,7 @@ theme:
     code: 'Roboto Mono'
 markdown_extensions:
   - admonition
-pages:
+nav:
   - 'Home':                     'index.md'
   - 'Getting Started':          'starting.md'
   - 'What is Captain Hook?':    'what.md'
