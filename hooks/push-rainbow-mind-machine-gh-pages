@@ -39,11 +39,17 @@ with open(logfile,'w') as f:
     gitdir = os.path.join(basedir,"git.%s"%(name))
     
     f.write("Directories:")
+    f.write("\n")
     f.write("base directory is %s"%(basedir))
+    f.write("\n")
     f.write("work directory is %s"%(workdir))
+    f.write("\n")
     f.write("git directory is %s"%(gitdir))
+    f.write("\n")
     f.write("os.path.isdir(%s) = %s"%(gitdir,os.path.isdir(gitdir)))
+    f.write("\n")
     f.write("os.path.isdir(%s) = %s"%(os.path.join(basedir,"htdocs"),os.path.isdir(os.path.join(basedir,"htdocs"))))
+    f.write("\n")
 
     if( os.path.isdir( gitdir ) 
     and os.path.isdir( os.path.join(basedir,"htdocs")) ):
