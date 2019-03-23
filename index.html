@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="./">
-      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-2.7.2">
     
     
       
@@ -59,7 +59,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="./css/custom.css">
+      <link rel="stylesheet" href="css/custom.css">
     
     
   </head>
@@ -220,7 +220,7 @@
         Home
       </label>
     
-    <a href="." title="Home" class="md-nav__link md-nav__link--active">
+    <a href="" title="Home" class="md-nav__link md-nav__link--active">
       Home
     </a>
     
@@ -269,6 +269,13 @@
   
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-docker-image" title="Base Docker Image" class="md-nav__link">
+    Base Docker Image
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#ports" title="Ports" class="md-nav__link">
@@ -433,6 +440,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#base-docker-image" title="Base Docker Image" class="md-nav__link">
+    Base Docker Image
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ports" title="Ports" class="md-nav__link">
     Ports
   </a>
@@ -497,17 +511,25 @@
                 
                 
                 <h1 id="b-captain-hook">b-captain-hook</h1>
-<p>Captain hook is a Python WSGI appication that handles webhooks from gitea and
+<p>Captain hook is a Python WSGI application that handles webhooks from gitea and
 github.</p>
 <p>Forked from <a href="https://github.com/carlos-jenkins/python-github-webhooks.git">carlos-jenkins/python-github-webhooks</a>.</p>
 <p>To install captain hook:</p>
 <pre><code>git clone https://git.charlesreid1.com/bots/b-captain-hook.git
 cd b-captain-hook
 pip install -r requirements.txt
+cp config.example.json config.json
+# edit config.json
 </code></pre>
 
-<p>Now run it:</p>
+<p>Run it standalone:</p>
 <pre><code>python captain_hook.py
+</code></pre>
+
+<p>Run it with docker:</p>
+<pre><code>docker-compose build
+docker-compose up -d
+docker-compose down
 </code></pre>
 
 <h2 id="what-is-captain-hook">What is Captain Hook?</h2>
@@ -515,7 +537,7 @@ pip install -r requirements.txt
 <p>See <a href="what/">What is Captain Hook?</a> for an explanation.</p>
 <h2 id="configuring-captain-hook">Configuring Captain Hook</h2>
 <p>Captain Hook requires a config file. See <code>config.example.json</code> in this 
-directory, and the <a href="config/">Captain Hook Config</a> page.</p>
+directory, and the <a href="config/">Captain Hook Config</a> page for more info.</p>
 <h2 id="starting-captain-hook">Starting Captain Hook</h2>
 <p>See <a href="starting/">Starting Captain Hook</a> for how to set up the various startup services
 and docker pods that are required to run Captain Hook.</p>
@@ -534,9 +556,9 @@ put it in the <code>hooks/</code> directory and follow the naming convention:</p
 
 <p>For example, suppose I performed a <code>push</code> action to a repository
 named <code>happy-giraffe</code>, and I was pushing commits to the <code>gh-pages</code>
-branch. Then the webhook sent to Captain Hook would contain this
-information, and Captain Hook would only look for the following
-scripts, and run them if present:</p>
+branch. The webhook sent to Captain Hook would contain this
+information, and Captain Hook would look for any webhooks with the
+following names, and run them if present:</p>
 <pre><code>b-captain-hook/
         hooks/push-happy-giraffe-gh-pages
         hooks/push-happy-giraffe
@@ -545,8 +567,7 @@ scripts, and run them if present:</p>
 </code></pre>
 
 <p>The application passes the path to a JSON file, while holding the payload
-for the request as the first argument. Suppose we had an event where someone
-pushed to the <code>happy-giraffe</code> repository, to the <code>gh-pages</code> branch. </p>
+for the request as the first argument. </p>
 <p>The application will pass in two pieces of information:</p>
 <ul>
 <li>
@@ -599,15 +620,22 @@ docker-compose up
 docker-compose down
 </code></pre>
 
+<h3 id="base-docker-image">Base Docker Image</h3>
+<p>Captain Hook uses the <code>python3-alpine-flask</code> container,
+which is a very lightweight container with python 3 
+available and with flask installed.</p>
+<p>See <a href="https://github.com/nikos/python3-alpine-flask-docker">nikos/python3-alpine-flask-docker</a>
+on Github.</p>
 <h3 id="ports">Ports</h3>
-<p>This binds to external port 5000. </p>
+<p>Captain Hook binds to external port 5000 on 
+whatever host it runs on.</p>
 <p>Implementing a secret key is critical to keep 
-captain hook from deploying random strangers' 
-webhook requests.</p>
-<p>In our case, the hook is reverse-proxied by nginx on krash,
-so we know what IP to expect. </p>
-<p>(Problems implementing IP checking - 172 subrange, not 45 subrange.)</p>
-<p>More important than validating the IP is validating the secret.</p>
+captain hook from deploying webhook requests
+from random strangers.</p>
+<p><strong>Recommendations:</strong> You can implement validation of the
+IP address sending the webhook, but more important than 
+validating the incoming IP address (which can always be
+spoofed) is to validate the secret. </p>
 <h3 id="volumes">Volumes</h3>
 <p>THe docker container mounts the <code>hooks/</code> directory
 in this repository to <code>/app/hooks</code> in the container.</p>
@@ -619,32 +647,38 @@ or the webhook server will not do anything and be totally silent.</strong></p>
 <p>The docker container will also mount <code>/www/</code> into the container,
 so all the static web content on the host (blackbeard) 
 is available to the webhooks to perform updates and etc.</p>
-<p><code>/www</code> is mounted to the same place on the host and in the container:</p>
+<p><code>/www</code> is mounted to the same place on the host and in the container,
+as indicated by this bind mount lin from the docker-compose file:</p>
 <pre><code>/www:/www
 </code></pre>
 
 <h3 id="testing">Testing</h3>
-<p>To test, you can trigger the webhook from the 
-repository's webhooks panel.</p>
-<p>Keep in mind this will <em>only</em> fire triggers
-on the master branch.</p>
+<p>To test Captain Hook, install a webhook in a given
+repository and use the server running Captain Hook
+as the endpoint. Set up the secret.</p>
+<p>You should be able to trigger a webhook test from the 
+repository's webhooks control panel. This should trigger
+Captain Hook, and if you've added a script for the 
+corresponding repository, it should be triggered by the test.</p>
+<p>Keep in mind that Gitea/Github will <em>only</em> fire triggers
+on the master branch of a repository, so you can't test
+arbitrary branches using this method.</p>
 <h2 id="debugging">Debugging</h2>
-<p>This container is an absolute pain in the ass to debug, 
-and uses python 2 to boot. </p>
-<p>But it was the only thing working.</p>
-<p>To test: </p>
+<p>To get into test/debug mode:</p>
 <ul>
+<li>Set up a "dummy" hook (the Python hook shown above) that will just log the webhook to a log file in <code>/tmp</code></li>
 <li>Run the server in one window</li>
 <li>In a second window, open a shell in the container and monitor <code>/tmp/*.log</code></li>
 <li>In a third window, open a shell in the container and monitor <code>/www/*</code></li>
 </ul>
-<p>To open a shell in the container:</p>
+<p>To open a shell inside the container, run this command 
+from the host machine:</p>
 <pre><code>docker exec -it &lt;name-of-container&gt; /bin/sh
 </code></pre>
 
-<p>Remember you only have <code>/bin/sh</code> and <code>python2</code>,
-no <code>bash</code> and no <code>python3</code>.</p>
-<p>To check logs:</p>
+<p>Remember that when you are inside this container, you will only have
+<code>/bin/sh</code> available - no <code>bash</code>.</p>
+<p>To check logs of this container, run this from the host machine:</p>
 <pre><code>docker logs -f &lt;container-name&gt;
 </code></pre>
 
@@ -656,8 +690,8 @@ to the background,</p>
 <p>and this will show exceptions on the screen
 (but it won't show anything else useful...)</p>
 <h2 id="licenses">Licenses</h2>
-<p>Original license (Charles Reid) and forked license
-(Carlos Jenkins) given in <a href="license/">license.md</a></p>
+<p>Original license (Carlos Jenkins) and forked license
+(Charles Reid) given in <a href="license/">license.md</a></p>
 <h2 id="credits">Credits</h2>
 <p>This project is just the reinterpretation and merge of two approaches:</p>
 <p><a href="https://github.com/datafolklabs/github-webhook-wrapper">github-webhook-wrapper</a></p>
@@ -727,11 +761,9 @@ to the background,</p>
     
       <script src="./assets/javascripts/application.0cf9b500.js"></script>
       
-      <script>app.initialize({version:"0.17.3",url:{base:"."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
-        <script src="./search/require.js"></script>
-      
-        <script src="./search/search.js"></script>
+        <script src="search/main.js"></script>
       
     
     
