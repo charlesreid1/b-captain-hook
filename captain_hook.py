@@ -149,9 +149,7 @@ def index():
     # Clean up
     remove(tmpfile)
 
-    info = config.get('return_scripts_info', False)
-    if not info:
-        return json.dumps({'status': 'done'})
+    return json.dumps({'status': 'done'})
 
     output = json.dumps(ran, sort_keys=True, indent=4)
 
