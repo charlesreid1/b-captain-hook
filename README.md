@@ -1,6 +1,6 @@
 # b-captain-hook
 
-Captain hook is a Python WSGI appication that handles webhooks from gitea and
+Captain hook is a Python WSGI application that handles webhooks from gitea and
 github.
 
 Captain Hook documentation: <https://pages.charlesreid1.com/b-captain-hook>
@@ -19,13 +19,13 @@ cp config.example.json config.json
 # edit config.json
 ```
 
-Run standalone:
+Run it standalone:
 
 ```
 python captain_hook.py
 ```
 
-Run with docker:
+Run it with docker:
 
 ```
 docker-compose build
